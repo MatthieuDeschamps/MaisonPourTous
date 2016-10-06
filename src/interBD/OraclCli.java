@@ -5,6 +5,7 @@
  */
 package interBD;
 
+import java.awt.Toolkit;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,14 +18,16 @@ import javax.swing.JOptionPane;
  * @author jpaul
  */
 public class OraclCli {
+
     private String dbURL = "";
     private String user = "";
     private String password = "";
     private java.sql.Connection dbConnect = null;
     private java.sql.Statement dbStatement = null;
- 
+
     /**
      * Constructeur
+     *
      * @param url
      * @param user
      * @param password
@@ -34,9 +37,10 @@ public class OraclCli {
         this.user = user;
         this.password = password;
     }
- 
+
     /**
      * Connecter à la base de donnée
+     *
      * @return false en cas d'échec
      */
     public Boolean connect() {
@@ -57,9 +61,10 @@ public class OraclCli {
         }
         return false;
     }
- 
+
     /**
      * Executer une requete SQL
+     *
      * @param sql
      * @return resultat de la requete
      */
@@ -72,7 +77,7 @@ public class OraclCli {
         }
         return null;
     }
-    
+
     public int update(String sql) {
         try {
             int nbMaj = this.dbStatement.executeUpdate(sql);
@@ -82,7 +87,7 @@ public class OraclCli {
         }
         return 0;
     }
- 
+
     /**
      * Fermer la connexion au serveur de DB
      */
@@ -95,11 +100,12 @@ public class OraclCli {
             Logger.getLogger(OraclCli.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void refresh() throws SQLException{
-       dbConnect.commit();
+
+    public void refresh() throws SQLException {
+        dbConnect.commit();
+        Toolkit.getDefaultToolkit().beep();
         JOptionPane.showMessageDialog(null, "     Réservation effectuée"
                 + "\nBase de données mise à jour", "Information", JOptionPane.INFORMATION_MESSAGE);
     }
- 
+
 }
